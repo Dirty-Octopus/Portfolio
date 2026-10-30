@@ -37,3 +37,34 @@ test("the audio tab links directly to the separate audio portfolio", () => {
   assert.match(anchor, /href="https:\/\/dirtyoctopus\.net\/?"/);
   assert.doesNotMatch(anchor, /data-nav=/, "the external tab must not be treated as an internal view");
 });
+
+test("navigation presents the three local modules before the unnumbered audio link", () => {
+  const html = readFileSync(new URL("index.html", root), "utf8");
+  const nav = html.match(/<nav\b[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+  assert.ok(nav);
+  const order = [...nav.matchAll(/data-nav="([^"]+)"|id="audio-portfolio"/g)].map(match => match[1] || "audio-portfolio");
+  assert.deepEqual(order, ["projects", "overview", "contact", "audio-portfolio"]);
+  const external = nav.match(/<a\b[^>]*\bid="audio-portfolio"[\s\S]*?<\/a\s*>/)?.[0];
+  assert.ok(external);
+  assert.doesNotMatch(external, /<span[^>]*>\s*\d{2}/);
+  assert.match(external, /nav-external/);
+});
+
+test("the simplified interface omits the playground and floating audio dock", () => {
+  const html = readFileSync(new URL("index.html", root), "utf8");
+  assert.doesNotMatch(html, /data-nav="fun"|class="playground"|id="(?:rotary-knob|neuraa-slider|volume|mute|spectrum)"/);
+  assert.doesNotMatch(html, /class="[^"]*\b(?:transport|project-transport)\b/);
+});
+
+test("the profile contains the current identity, interests and two download achievements", () => {
+  const html = readFileSync(new URL("index.html", root), "utf8");
+  const i18n = readFileSync(new URL("src/i18n.js", root), "utf8");
+  for (const text of ["Andy Yu", "暨南大学", "Jinan University", "Audio DSP", "UNIX", "FOSS"]) assert.ok(i18n.includes(text));
+  const achievements = html.match(/<div class="profile-credits">([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(achievements);
+  assert.match(achievements, /<b>1K<\/b\s*>/);
+  assert.match(achievements, /<b>3K\+<\/b\s*>/);
+  assert.match(achievements, /minecraftDownloads/);
+  assert.match(achievements, /terrariaDownloads/);
+  assert.doesNotMatch(achievements, /<a\b|390K|240K/);
+});

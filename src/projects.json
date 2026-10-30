@@ -4,7 +4,7 @@
     "title": "Seal",
     "category": "desktop",
     "repository": "https://github.com/Dirty-Octopus/seal",
-    "image": "art/seal.png",
+    "image": "art/seal-dark.png",
     "subtitle": ["macOS / 本地签名工具", "MACOS / LOCAL SIGNING UTILITY"],
     "description": [
       "为 macOS 应用与文件处理本地签名与扩展属性。把常用操作集中在一个桌面界面中，并保留执行记录。",

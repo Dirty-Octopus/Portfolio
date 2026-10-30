@@ -1,6 +1,6 @@
 /* GitHub archive panels use the music site's chassis, palette and motion rails. */
 .github-portfolio {
-  --dock-space: 66px;
+  --dock-space: 0px;
 }
 .github-portfolio #site {
   padding-bottom: var(--dock-space);
@@ -328,45 +328,7 @@
   line-height: 1.7;
   margin-top: 16px;
 }
-.github-portfolio .project-transport.collapsed {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 8px 16px;
-  height: 44px;
-  min-height: 44px;
-  width: 440px;
-  max-width: calc(100% - 28px);
-  left: auto;
-  right: 24px;
-  bottom: 12px;
-  border: 1px solid var(--edge);
-  clip-path: none;
-  box-shadow: none;
-}
-.github-portfolio .project-transport > .micro {
-  white-space: nowrap;
-  font-size: 8px;
-}
-.github-portfolio .project-transport .volume-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: auto;
-  min-width: 130px;
-}
-.github-portfolio .project-transport .volume-control input {
-  width: 82px;
-}
-.github-portfolio .project-transport #spectrum {
-  width: 70px;
-  height: 24px;
-}
-.github-portfolio .project-transport #volume-value {
-  min-width: 28px;
-  font: 8px var(--mono);
-}
+
 .preview-dialog {
   position: fixed;
   width: min(1280px, calc(100vw - 32px));
@@ -491,15 +453,6 @@
   .project-description {
     font-size: 12px;
   }
-  .github-portfolio .project-transport.collapsed {
-    right: 14px;
-    bottom: 8px;
-    width: 340px;
-    gap: 10px;
-  }
-  .github-portfolio .project-transport #spectrum {
-    display: none;
-  }
 }
 @media (max-width: 420px) {
   .github-portfolio .shell[data-view="projects"] .hero-copy {
@@ -542,5 +495,30 @@
   .project-row,
   .project-filters button {
     transition: none;
+  }
+}
+
+.github-portfolio .nav.nav-external {
+  margin-left: 12px;
+  background: var(--panel-low);
+  color: var(--secondary);
+  box-shadow: inset 0 0 0 1px var(--edge);
+}
+.github-portfolio .nav.nav-external:is(:hover, :focus-visible) {
+  background: var(--panel);
+  color: var(--ink);
+}
+.github-portfolio .nav.nav-external small {
+  color: var(--secondary);
+}
+.github-portfolio .profile-credits {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+html {
+  scroll-padding-bottom: 24px;
+}
+@media (max-width: 760px) {
+  .github-portfolio .nav.nav-external {
+    margin-left: 7px;
   }
 }

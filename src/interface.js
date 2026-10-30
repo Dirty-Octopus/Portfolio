@@ -8,7 +8,6 @@ const $$ = (s) => [...document.querySelectorAll(s)];
 const labels = {
   projects: ["GitHub 项目", "GITHUB PROJECTS"],
   overview: ["个人简介", "PROFILE"],
-  fun: ["有趣的东西", "PLAYGROUND"],
   contact: ["联系方式", "CONTACT"],
 };
 let transition = null,

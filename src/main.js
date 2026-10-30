@@ -26,7 +26,6 @@ import { initProjects } from "./projects.js";
 import { PlaybackEngine } from "./player.js";
 import manifest from "./media.json";
 import volumeIcon from "@phosphor-icons/core/assets/regular/speaker-high.svg?raw";
-import muteIcon from "@phosphor-icons/core/assets/regular/speaker-slash.svg?raw";
 import searchIcon from "@phosphor-icons/core/assets/regular/magnifying-glass.svg?raw";
 import arrowIcon from "@phosphor-icons/core/assets/regular/arrow-up-right.svg?raw";
 import slidersIcon from "@phosphor-icons/core/assets/regular/sliders-horizontal.svg?raw";
@@ -39,7 +38,6 @@ const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const icons = {
   "speaker-high": volumeIcon,
-  "speaker-slash": muteIcon,
   "magnifying-glass": searchIcon,
   "arrow-up-right": arrowIcon,
   "sliders-horizontal": slidersIcon,
@@ -105,15 +103,6 @@ function syncSoundControls() {
     $(`#system-${name}`).setAttribute("aria-checked", String(enabled));
     $(`#system-${name}`).textContent = enabled ? t("开", "ON") : t("关", "OFF");
   }
-  $("#volume-value").textContent = engine.muted
-    ? t("静音", "MUTE")
-    : `${Math.round(engine.volume * 100)}%`;
-  $("#mute").innerHTML = engine.muted || !engine.volume ? muteIcon : volumeIcon;
-  $("#mute").setAttribute("aria-pressed", String(engine.muted));
-  $("#mute").setAttribute(
-    "aria-label",
-    engine.muted ? t("取消静音", "Unmute") : t("静音", "Mute"),
-  );
 }
 $("#sfx-toggle").addEventListener("click", () => {
   engine.sfxEnabled = !engine.sfxEnabled;
@@ -127,11 +116,6 @@ $("#bgm-toggle").addEventListener("click", async () => {
   await assetsReady;
   await engine.setBgmEnabled(engine.bgmEnabled);
 });
-$("#volume").addEventListener("input", (event) => {
-  engine.setMuted(false);
-  engine.setVolume(event.target.value);
-});
-$("#mute").addEventListener("click", () => engine.setMuted(!engine.muted));
 initInterface({ engine });
 initProjects({ motionAllowed, engine });
 initTactileExperience({ engine, motionAllowed });
@@ -163,7 +147,6 @@ async function startAudioLoading() {
         );
       });
       await Promise.all([
-        engine.scrubber.prepare(),
         document.fonts.ready,
         logosReady,
         ...$$("img").map((image) => image.decode().catch(() => {})),
@@ -309,9 +292,7 @@ document.addEventListener(
       !event.target.closest("button,a,input")
     )
       return;
-    const interactive =
-      !event.target.closest(".playground") &&
-      event.target.closest("button,a,input,select,textarea");
+    const interactive = event.target.closest("button,a,input,select,textarea");
     engine
       .unlock()
       .then(() => {
@@ -343,7 +324,6 @@ document.addEventListener("settingsreset", async () => {
   engine.sfxEnabled = engine.bgmEnabled = true;
   engine.setMuted(false);
   engine.setVolume(0.65);
-  $("#volume").value = "0.65";
   setLanguage("zh");
   syncSoundControls();
   toast(t("已恢复默认设置", "Default settings restored"));
@@ -357,24 +337,5 @@ document.addEventListener("languagechange", () => {
 $$("[data-language]").forEach((button) =>
   button.addEventListener("click", () => setLanguage(button.dataset.language)),
 );
-const spectrum = $("#spectrum"),
-  context = spectrum.getContext("2d"),
-  bins = new Uint8Array(128);
-let lastFrame = 0;
-function frame(time) {
-  requestAnimationFrame(frame);
-  if (document.hidden || time - lastFrame < (motionAllowed() ? 50 : 180))
-    return;
-  lastFrame = time;
-  if (engine.analyser) engine.analyser.getByteFrequencyData(bins);
-  context.clearRect(0, 0, spectrum.width, spectrum.height);
-  context.fillStyle =
-    getComputedStyle(document.body).getPropertyValue("--accent") || "#7caac2";
-  for (let i = 0; i < 20; i++) {
-    const height = Math.max(2, ((bins[Math.floor(i * 3)] || 0) / 255) * 26);
-    for (let y = 0; y < height; y += 4) context.fillRect(i * 5, 28 - y, 3, 2);
-  }
-}
-requestAnimationFrame(frame);
 setLanguage("zh");
 startAudioLoading();

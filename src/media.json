@@ -4,16 +4,11 @@
     "website_bootup": "media/website_bootup.wav",
     "flicker": "media/flicker.wav",
     "preselect": "media/preselect.wav",
-    "clack": "media/clack.wav",
     "lowerclack": "media/lowerclack.wav",
     "clickeffect": "media/clickeffect.wav",
     "clickevent": "media/clickevent.wav",
     "suprise": "media/suprise.wav",
-    "neuraasliderto": "media/neuraasliderto.wav",
-    "neuraasliderfrom": "media/neuraasliderfrom.wav",
-    "round": "media/round.wav",
     "scanner": "media/scanner.wav",
-    "notification": "media/notification.wav",
     "website_Water1": "media/website_Water1.wav",
     "website_Water2": "media/website_Water2.wav"
   }

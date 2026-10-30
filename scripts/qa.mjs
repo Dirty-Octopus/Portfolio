@@ -187,6 +187,8 @@ async function main() {
   await wait(`document.querySelector('#boot').hidden && !document.querySelector('#site').inert`, 20000, "entry assembly");
   check("GitHub projects open as the first module", await evaluate(`document.querySelector('.shell').dataset.view==='projects' && document.querySelectorAll('#project-list [data-project]').length===4`));
   check("audio navigation leads to dirtyoctopus.net", await evaluate(`document.querySelector('#audio-portfolio').href==='https://dirtyoctopus.net/'`));
+  check("navigation ends with a distinct unnumbered audio link", await evaluate(`(()=>{const nav=document.querySelector('nav'),items=[...nav.querySelectorAll('[data-nav],#audio-portfolio')],link=document.querySelector('#audio-portfolio');return JSON.stringify(items.map(e=>e.dataset.nav||e.id))===JSON.stringify(['projects','overview','contact','audio-portfolio'])&&!link.hasAttribute('data-nav')&&![...link.querySelectorAll('span')].some(e=>/^\\s*\\d{2}/.test(e.textContent))})()`));
+  check("playground and floating sound controls are absent", await evaluate(`!document.querySelector('[data-nav="fun"],.playground,#rotary-knob,#neuraa-slider,.transport,.project-transport,#volume,#mute,#spectrum')`));
   check("Chinese entry localizes the document", await evaluate(`document.documentElement.lang==='zh-CN' && /GitHub|项目|作品集/i.test(document.title)`));
   check("background music starts as a loop", await evaluate(`window.__qa.sounds.some(s=>s.loop)`));
   await evaluate(`window.scrollTo({top:0,behavior:'instant'})`);
@@ -234,23 +236,13 @@ async function main() {
   }
 
   await go("overview");
-  check("about module preserves the personal biography", await evaluate(`document.querySelector('.biography').offsetWidth>0 && document.querySelector('.biography').textContent.includes('海外独立游戏团队')`));
+  check("profile identifies Andy Yu and Jinan University", await evaluate(`(()=>{const b=document.querySelector('.biography');return b.offsetWidth>0&&b.textContent.includes('Andy Yu')&&b.textContent.includes('暨南大学')&&b.textContent.includes('独立开发')})()`));
+  check("profile covers audio DSP, web development, UNIX and FOSS", await evaluate(`(()=>{const text=document.querySelector('.biography').textContent;return /Audio\\s*DSP/i.test(text)&&/Web(?:\\s*Dev|\\s*开发)/i.test(text)&&/UNIX/i.test(text)&&/FOSS/i.test(text)})()`));
+  check("profile lists the two game project download achievements", await evaluate(`(()=>{const credits=document.querySelector('.profile-credits'),items=[...credits.children];return items.length===2&&items[0].textContent.includes('1K')&&/Minecraft/i.test(items[0].textContent)&&items[1].textContent.includes('3K+')&&/Terraria/i.test(items[1].textContent)&&!credits.querySelector('a')})()`));
   await shot("05-about");
   await go("contact");
   check("contact module preserves email and social IDs", await evaluate(`document.querySelector('.contact').offsetWidth>0 && document.querySelector('.contact a[href="mailto:yuandy24@icloud.com"]') && document.querySelectorAll('[data-copy-contact]').length===4`));
   await shot("06-contact");
-  await go("fun");
-  await evaluate(`document.querySelector('#rotary-knob').focus()`);
-  const rotaryBefore = await evaluate(`Number(document.querySelector('#rotary-knob').getAttribute('aria-valuenow'))`);
-  await key("ArrowRight");
-  await wait(`Number(document.querySelector('#rotary-knob').getAttribute('aria-valuenow'))!==${rotaryBefore}`, 3000);
-  check("crank responds to keyboard input", await evaluate(`Number(document.querySelector('#rotary-knob').getAttribute('aria-valuenow'))!==${rotaryBefore}`));
-  await evaluate(`document.querySelector('#neuraa-slider').focus()`);
-  const sliderBefore = await evaluate(`Number(document.querySelector('#neuraa-slider').getAttribute('aria-valuenow'))`);
-  await key("ArrowRight");
-  check("audio scrubber responds to keyboard input", await evaluate(`Number(document.querySelector('#neuraa-slider').getAttribute('aria-valuenow'))>${sliderBefore}`));
-  check("playground includes the original game link", await evaluate(`document.querySelector('.playground-game-link').href==='https://dirty-octopus.github.io/V0lt4ge-Ov3rdrive/'`));
-  await shot("07-playground");
 
   await click("#sfx-toggle");
   const silentBefore = await evaluate(`window.__qa.sounds.length`);
@@ -279,13 +271,13 @@ async function main() {
   await wait(`!document.querySelector('#system-dialog').open && !document.querySelector('#site').inert`);
   await go("projects");
   check("project selection survives language changes", await evaluate(`document.querySelector('#project-repository').href.includes('spectral-corruptor-plugin') && document.querySelector('#project-image').naturalWidth>0`));
-  await evaluate(`for(const view of ['overview','contact','fun','projects'])document.querySelector('[data-nav="'+view+'"]').click()`);
+  await evaluate(`for(const view of ['overview','contact','projects'])document.querySelector('[data-nav="'+view+'"]').click()`);
   await wait(`document.querySelector('.shell').dataset.view==='projects' && !document.querySelector('.workspace').inert`);
   check("rapid module changes settle on the latest selection", true);
 
   for (const width of [390, 320]) {
     await viewport(width, width === 390 ? 844 : 740);
-    for (const view of ["projects", "overview", "fun", "contact"]) {
+    for (const view of ["projects", "overview", "contact"]) {
       await go(view);
       check(`${view} has no horizontal overflow at ${width}px`, await evaluate(`document.documentElement.scrollWidth<=${width + 1}`), `width=${await evaluate('document.documentElement.scrollWidth')}`);
     }
@@ -305,8 +297,9 @@ async function main() {
   await click("#enter-en");
   await wait(`document.querySelector('#boot').hidden`, 10000);
   check("English entry works with reduced motion", await evaluate(`document.documentElement.lang==='en' && document.querySelector('.shell').dataset.view==='projects'`));
-  await go("fun");
+  await go("overview");
   check("reduced motion settles navigation immediately", await evaluate(`!document.querySelector('.workspace').inert && !document.querySelector('.shell').classList.contains('reconfiguring')`));
+  check("English profile preserves the updated identity and achievements", await evaluate(`(()=>{const b=document.querySelector('.biography'),credits=b.querySelector('.profile-credits');return b.textContent.includes('Andy Yu')&&/Jinan University/i.test(b.textContent)&&credits.children.length===2&&/Minecraft/i.test(credits.textContent)&&/Terraria/i.test(credits.textContent)})()`));
   await shot("10-mobile-reduced-motion");
   const pageErrors = await evaluate(`window.__qa.errors`);
   check("no uncaught browser errors", errors.length === 0 && pageErrors.length === 0, [...errors, ...pageErrors].slice(0, 4).join(" | "));

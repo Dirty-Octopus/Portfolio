@@ -6,7 +6,7 @@ const root = new URL("../", import.meta.url);
 const manifest = JSON.parse(readFileSync(new URL("src/media.json", root), "utf8"));
 
 test("every shared sound is a bundled nonempty WAV asset", () => {
-  const required = ["pad", "website_bootup", "flicker", "preselect", "clack", "lowerclack", "clickeffect", "clickevent", "suprise", "neuraasliderto", "neuraasliderfrom", "round", "scanner", "website_Water1", "website_Water2"];
+  const required = ["pad", "website_bootup", "flicker", "preselect", "lowerclack", "clickeffect", "clickevent", "suprise", "scanner", "website_Water1", "website_Water2"];
   for (const name of required) {
     const path = manifest.sfx[name];
     assert.ok(path?.startsWith("media/"), `${name} must be bundled locally`);

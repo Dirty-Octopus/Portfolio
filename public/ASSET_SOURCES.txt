@@ -4,12 +4,12 @@ Verified 2026-10-30
 Project previews
 ---------------
 
-art/seal.png
+art/seal-dark.png
 Repository: https://github.com/Dirty-Octopus/seal
-Source asset: https://github.com/Dirty-Octopus/seal/blob/main/docs/preview-light.png
-Git blob SHA: 8a32105599245f087a78ed85c9807ea0cca17127
-Copied from the matching local repository asset. This is the current README's
-AYMDevKitUI interface preview.
+Source asset: https://github.com/Dirty-Octopus/seal/blob/main/docs/preview-dark-zh.png
+Git blob SHA: dd073833bf8c892309ce592f3c01b872e8df873e
+Copied from the matching local repository asset. Shows the current AYMDevKitUI
+interface in dark appearance with Chinese labels.
 
 art/packager.png
 Repository: https://github.com/Dirty-Octopus/packager
