@@ -1,0 +1,46 @@
+Portfolio asset sources
+Verified 2026-10-30
+
+Project previews
+---------------
+
+art/seal.png
+Repository: https://github.com/Dirty-Octopus/seal
+Source asset: https://github.com/Dirty-Octopus/seal/blob/main/docs/preview-light.png
+Git blob SHA: 8a32105599245f087a78ed85c9807ea0cca17127
+Copied from the matching local repository asset. This is the current README's
+AYMDevKitUI interface preview.
+
+art/packager.png
+Repository: https://github.com/Dirty-Octopus/packager
+Source asset: https://github.com/Dirty-Octopus/packager/blob/main/docs/full-mode-dark.png
+Git blob SHA: fc3ce123b0a20a155dee0f8f1a226a1204a8a3e3
+Copied from the matching local repository asset; shows Full mode.
+
+art/spectral-corruptor.png
+Repository: https://github.com/Dirty-Octopus/spectral-corruptor-plugin
+Screenshot supplied directly by the site owner for this portfolio on 2026-10-30.
+Original file name: longshot20261029100512.png
+The screenshot shows the official plugin interface. The linked public repository
+is the Source Edition; consult its README for the supplied licensing placeholder
+and the differences from official binaries and factory presets.
+
+art/dtblkfx.png
+Repository: https://github.com/Dirty-Octopus/dtblkfx4mackintosh
+Screenshot supplied directly by the site owner for this portfolio on 2026-10-30.
+Original file name: codex-clipboard-c5c072c1-29e0-4bc3-838b-845567cb229e.png
+DtBlkFx is originally by Darrell Tam; the screenshot retains the upstream credits.
+The linked repository describes the Apple Silicon macOS port and its current status.
+Upstream: https://codeberg.org/skullzy/DtBlkFx
+
+Shared identity, interface audio and motion
+-----------------------------------------
+Migrated from the owner's Portfolio4Music project:
+https://github.com/Dirty-Octopus/Portfolio4Music
+The site preserves the supplied Dirty Octopus identity assets and local audio.
+See THIRD_PARTY_NOTICES.txt for bundled third-party code and dependency notices.
+
+Fonts and icons
+---------------
+Barlow Condensed, IBM Plex Mono and Phosphor assets are bundled through the
+same packages as Portfolio4Music. Their upstream package licences remain applicable.

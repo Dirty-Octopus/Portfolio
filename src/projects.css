@@ -1,0 +1,546 @@
+/* GitHub archive panels use the music site's chassis, palette and motion rails. */
+.github-portfolio {
+  --dock-space: 66px;
+}
+.github-portfolio #site {
+  padding-bottom: var(--dock-space);
+}
+.github-portfolio .nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+}
+.github-portfolio .shell[data-view="projects"] :is(.hero, .chassis-bridge) {
+  display: block;
+}
+.github-portfolio .shell[data-view="projects"] .hero {
+  height: 278px;
+  min-height: 278px;
+}
+.github-portfolio .shell[data-view="projects"] .hero-copy {
+  padding: 28px 40px;
+}
+.github-portfolio .shell[data-view="projects"] .hero h2 {
+  font-size: clamp(26px, 3.4vw, 48px);
+  line-height: 0.96;
+}
+.github-portfolio .shell[data-view="projects"] .hero-description {
+  display: block;
+  font-size: 12px;
+}
+.github-portfolio .shell[data-view="projects"] .hero-description small {
+  display: block;
+}
+.github-portfolio .shell[data-view="projects"] .metal-button {
+  display: inline-flex;
+  margin-top: 12px;
+}
+.github-portfolio .shell[data-view="projects"] .hero-coordinate .image-index {
+  display: flex;
+}
+.github-portfolio .shell[data-view="projects"] .workspace {
+  display: block;
+  padding: 0;
+}
+.github-portfolio
+  .shell[data-view="projects"]
+  .workspace
+  > :not(.project-board) {
+  display: none;
+}
+.project-board {
+  display: grid;
+  grid-template-columns: minmax(240px, 30%) minmax(0, 1fr);
+  min-width: 0;
+  background: var(--panel);
+  color: var(--ink);
+}
+.project-index {
+  border-right: 1px solid var(--edge);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.project-index .panel-label {
+  margin: 0;
+  padding: 13px 18px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--edge);
+  font-size: 12px;
+}
+.project-index .search {
+  width: auto;
+  margin: 16px 14px 10px;
+}
+.project-index .search input {
+  min-width: 0;
+  font-size: 11px;
+}
+.project-filters {
+  display: flex;
+  gap: 4px;
+  padding: 0 14px 14px;
+  flex-wrap: wrap;
+}
+.project-filters button {
+  padding: 7px 9px;
+  border: 1px solid var(--edge);
+  font-size: 10px;
+  color: var(--secondary);
+}
+.project-filters button.active,
+.project-filters button:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.project-list {
+  flex: 1;
+  min-height: 280px;
+}
+.project-row {
+  display: grid;
+  grid-template-columns: 24px 1fr 14px;
+  gap: 10px;
+  width: 100%;
+  min-height: 101px;
+  padding: 19px 16px;
+  border-top: 1px solid var(--edge);
+  text-align: left;
+  align-items: start;
+  color: var(--ink);
+  background: var(--panel-low);
+}
+.project-row-number {
+  padding-top: 4px;
+  font: 9px var(--mono);
+  opacity: 0.7;
+}
+.project-row-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+.project-row strong {
+  font: 600 24px/0.96 var(--display);
+  overflow-wrap: anywhere;
+}
+.project-row small {
+  font-size: 9px;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+.project-row-arrow {
+  font-size: 16px;
+}
+.project-row:is(.selected, :hover, :focus-visible) {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.project-row.selected {
+  border-left: 5px solid var(--strata-mid);
+  padding-left: 11px;
+}
+.project-index-foot {
+  padding: 17px 14px;
+  border-top: 1px solid var(--edge);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  font: 9px/1.5 var(--mono);
+  color: var(--secondary);
+}
+.project-index-foot a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.project-feature {
+  min-width: 0;
+}
+.project-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 7px 14px;
+  background: var(--panel-low);
+  border-bottom: 1px solid var(--edge);
+  font: 9px var(--mono);
+  color: var(--secondary);
+}
+.project-preview-heading > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.project-preview-heading .icon-button {
+  width: 27px;
+  height: 27px;
+  min-width: 27px;
+  border: 1px solid var(--edge);
+  color: var(--ink);
+}
+.project-preview-heading svg {
+  width: 15px;
+  height: 15px;
+}
+.project-image-stage {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 26px 30px 35px;
+  height: clamp(300px, 31vw, 440px);
+  min-height: 300px;
+  background: #17191b;
+  border-bottom: 1px solid var(--edge);
+}
+.project-image-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#ffffff05 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff05 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+.project-image-stage:hover {
+  background: #1e2124;
+}
+.project-image-stage:active {
+  transform: none;
+}
+#project-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  filter: none;
+}
+.preview-caption {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  color: #b5b8bc;
+  font: 7px var(--mono);
+  letter-spacing: 1px;
+}
+.preview-expand {
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
+  font: 9px var(--mono);
+  color: #c9cdd0;
+}
+.project-text {
+  position: relative;
+  overflow: hidden;
+  padding: 25px 28px 24px;
+  min-height: 272px;
+}
+.project-text .cartridge-ghost {
+  position: absolute;
+  inset: 25px 28px 24px;
+  z-index: 2;
+}
+.project-text-content {
+  min-width: 0;
+  background: var(--panel);
+}
+.project-text .micro {
+  font-size: 9px;
+  color: var(--secondary);
+}
+.project-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 9px;
+}
+.project-title-row h2 {
+  font: 600 clamp(29px, 3.2vw, 46px)/1 var(--display);
+  color: var(--ink);
+}
+.project-title-row > span {
+  color: var(--secondary);
+  font: 28px var(--display);
+  opacity: 0.4;
+}
+.project-description {
+  font-size: 12px;
+  line-height: 1.9;
+  max-width: 70ch;
+  margin-top: 16px;
+  color: var(--ink);
+  min-height: 46px;
+}
+.project-tags {
+  list-style: none;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 15px 0 20px;
+}
+.project-tags li {
+  padding: 4px 6px;
+  border: 1px solid var(--edge);
+  color: var(--secondary);
+  font: 8px var(--mono);
+}
+.project-actions {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+.project-actions .metal-button {
+  display: inline-flex;
+  margin: 0;
+  height: 38px;
+  min-height: 38px;
+  width: auto;
+  padding: 0 18px;
+  gap: 10px;
+}
+.project-actions .metal-button b {
+  font-size: 11px;
+}
+.project-actions > a:last-child {
+  font: 10px var(--mono);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.project-note {
+  color: var(--secondary);
+  font-size: 9px;
+  line-height: 1.7;
+  margin-top: 16px;
+}
+.github-portfolio .project-transport.collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 16px;
+  height: 44px;
+  min-height: 44px;
+  width: 440px;
+  max-width: calc(100% - 28px);
+  left: auto;
+  right: 24px;
+  bottom: 12px;
+  border: 1px solid var(--edge);
+  clip-path: none;
+  box-shadow: none;
+}
+.github-portfolio .project-transport > .micro {
+  white-space: nowrap;
+  font-size: 8px;
+}
+.github-portfolio .project-transport .volume-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  min-width: 130px;
+}
+.github-portfolio .project-transport .volume-control input {
+  width: 82px;
+}
+.github-portfolio .project-transport #spectrum {
+  width: 70px;
+  height: 24px;
+}
+.github-portfolio .project-transport #volume-value {
+  min-width: 28px;
+  font: 8px var(--mono);
+}
+.preview-dialog {
+  position: fixed;
+  width: min(1280px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  overflow: auto;
+}
+.preview-dialog::backdrop {
+  background: #000d;
+  backdrop-filter: blur(8px);
+}
+.preview-dialog header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--edge);
+}
+.preview-dialog header h2 {
+  font: 600 23px var(--display);
+}
+.preview-dialog #preview-close {
+  width: 36px;
+  height: 36px;
+  font-size: 24px;
+}
+.preview-full-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  padding: 18px;
+  background: #141618;
+}
+#preview-image {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  max-height: calc(100dvh - 180px);
+  object-fit: contain;
+  filter: none;
+}
+.preview-dialog > a {
+  display: block;
+  padding: 14px 20px;
+  font: 10px var(--mono);
+  border-top: 1px solid var(--edge);
+}
+@media (max-width: 1100px) {
+  .project-board {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+  .project-row strong {
+    font-size: 22px;
+  }
+}
+@media (max-width: 760px) {
+  .github-portfolio .shell[data-view="projects"] .hero {
+    height: 260px;
+    min-height: 260px;
+  }
+  .github-portfolio .shell[data-view="projects"] .hero-copy {
+    padding: 24px 22px;
+  }
+  .github-portfolio .shell[data-view="projects"] .hero h2 {
+    font-size: 30px;
+  }
+  .github-portfolio .shell[data-view="projects"] .hero-coordinate {
+    display: none;
+  }
+  .project-board {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project-index {
+    border-right: 0;
+    border-bottom: 1px solid var(--edge);
+  }
+  .project-index .search {
+    margin-top: 12px;
+  }
+  .project-list {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .project-row {
+    grid-template-columns: 19px minmax(0, 1fr);
+    gap: 6px;
+    min-height: 100px;
+    padding: 15px 12px;
+  }
+  .project-row:nth-child(odd) {
+    border-right: 1px solid var(--edge);
+  }
+  .project-row.selected {
+    padding-left: 7px;
+  }
+  .project-row-arrow {
+    display: none;
+  }
+  .project-row strong {
+    font-size: 23px;
+  }
+  .project-row small {
+    font-size: 8px;
+  }
+  .project-index-foot {
+    padding-block: 10px;
+  }
+  .project-image-stage {
+    height: 330px;
+    padding: 20px 16px 35px;
+  }
+  .project-text {
+    padding: 22px 20px;
+  }
+  .project-description {
+    font-size: 12px;
+  }
+  .github-portfolio .project-transport.collapsed {
+    right: 14px;
+    bottom: 8px;
+    width: 340px;
+    gap: 10px;
+  }
+  .github-portfolio .project-transport #spectrum {
+    display: none;
+  }
+}
+@media (max-width: 420px) {
+  .github-portfolio .shell[data-view="projects"] .hero-copy {
+    padding: 24px 18px;
+  }
+  .github-portfolio .shell[data-view="projects"] .hero h2 {
+    font-size: 28px;
+  }
+  .github-portfolio .shell[data-view="projects"] .hero-copy > .micro {
+    font-size: 7px;
+  }
+  .github-portfolio .shell[data-view="projects"] .hero-description {
+    font-size: 11px;
+  }
+  .project-image-stage {
+    height: 270px;
+    min-height: 270px;
+  }
+  .project-row strong {
+    font-size: 21px;
+  }
+  .project-row {
+    min-height: 104px;
+  }
+  .project-title-row h2 {
+    font-size: 32px;
+  }
+  .project-preview-heading {
+    font-size: 8px;
+    gap: 6px;
+  }
+  .project-preview-heading > div {
+    gap: 5px;
+  }
+  .project-text .cartridge-ghost {
+    inset: 22px 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-row,
+  .project-filters button {
+    transition: none;
+  }
+}

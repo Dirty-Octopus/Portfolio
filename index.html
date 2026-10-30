@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#172933" />
+    <meta
+      name="description"
+      content="Dirty Octopus 的 GitHub 作品集。macOS 工具、音频插件与开源项目。"
+    />
+    <title>OCTOPUS / GitHub Projects</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <style>
+      /* Paint the portal before modules, saved settings, or restored scroll run. */
+      body.boot-visible {
+        overflow: hidden;
+      }
+      body.boot-visible:not(.portal-opening) #site {
+        visibility: hidden;
+      }
+      .language-entry:not(.is-ready) {
+        visibility: hidden;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body
+    class="boot-visible dock-collapsed github-portfolio"
+    data-treatment="halftone"
+  >
+    <svg
+      class="filter-definitions"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <filter
+          id="crt-lens"
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-color="rgb(128,128,0)" result="neutral" />
+          <feImage id="crt-map" preserveAspectRatio="none" result="lens-map" />
+          <feComposite
+            in="lens-map"
+            in2="neutral"
+            operator="over"
+            result="map"
+          />
+          <feDisplacementMap
+            id="crt-displacement"
+            in="SourceGraphic"
+            in2="map"
+            xChannelSelector="R"
+            yChannelSelector="G"
+            scale="0"
+            result="curved-page"
+          />
+          <feImage
+            id="crt-background"
+            x="0"
+            y="0"
+            width="140"
+            height="140"
+            preserveAspectRatio="none"
+            result="background-tile"
+          />
+          <feTile in="background-tile" result="background" />
+          <feMerge>
+            <feMergeNode in="background" />
+            <feMergeNode in="curved-page" />
+          </feMerge>
+        </filter>
+        <filter id="logo-cutout" color-interpolation-filters="sRGB">
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 .82  0 0 0 0 .88  0 0 0 0 .91  1 1 1 0 -1.95"
+          />
+          <feComponentTransfer>
+            <feFuncA type="discrete" tableValues="0 0 .3 .8 1" />
+          </feComponentTransfer>
+        </filter>
+        <filter id="duotone" color-interpolation-filters="sRGB">
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer>
+            <feFuncR type="discrete" tableValues=".07 .12 .23 .40 .64 .77" />
+            <feFuncG type="discrete" tableValues=".11 .20 .33 .49 .70 .83" />
+            <feFuncB type="discrete" tableValues=".15 .26 .41 .57 .75 .85" />
+          </feComponentTransfer>
+        </filter>
+        <filter id="poster-mono" color-interpolation-filters="sRGB">
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer>
+            <feFuncR type="discrete" tableValues=".08 .2 .39 .61 .82" />
+            <feFuncG type="discrete" tableValues=".1 .22 .41 .63 .84" />
+            <feFuncB type="discrete" tableValues=".12 .24 .43 .65 .86" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+    </svg>
+    <div
+      class="boot"
+      id="boot"
+      role="dialog"
+      aria-modal="true"
+      aria-label="进入 GitHub 作品集"
+    >
+      <div class="boot-face">
+        <div class="boot-grid"></div>
+        <div class="boot-rule">
+          <span>DIRTY OCTOPUS</span><span>INTERACTIVE GITHUB PORTFOLIO</span>
+        </div>
+        <div class="boot-center">
+          <div class="portal-caption" aria-hidden="true">
+            <span>DO. / INDEPENDENT CODE ARCHIVE</span
+            ><span>BUILT TO EXPLORE</span>
+          </div>
+          <div class="portal-body">
+            <div class="portal-copy">
+              <button
+                type="button"
+                class="boot-symbol"
+                aria-label="旋转金属标志 / Spin the metal logo"
+              >
+                <img src="./art/dirty-octopus-logo.jpg" alt="Dirty Octopus" />
+              </button>
+              <p class="micro">MACOS UTILITIES / AUDIO PLUGINS / SOURCE CODE</p>
+              <h1>DIRTY OCTOPUS<br /><b>CODE ARCHIVE.</b></h1>
+              <p class="boot-note">macOS 工具 / 音频插件 / 开源项目</p>
+            </div>
+            <div class="portal-visual" aria-hidden="true">
+              <div class="portal-visual-title">
+                <span>IDEAS TAKE SHAPE.</span><b>01—∞</b>
+              </div>
+              <span class="portal-visual-foot"
+                >TOOLS, PLUGINS & EXPERIMENTS.</span
+              >
+            </div>
+          </div>
+          <div class="portal-controls">
+            <div class="entry-stage">
+              <div class="portal-loader" aria-hidden="true">
+                <div class="loader-track">
+                  <i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <span>PREPARING THE ARCHIVE</span>
+              </div>
+              <div
+                class="language-entry"
+                role="group"
+                aria-label="选择语言 / Choose language"
+                inert
+              >
+                <button
+                  id="enter"
+                  class="enter-button"
+                  data-enter="zh"
+                  disabled
+                >
+                  <b>中文版</b
+                  ><span>进入作品集 <i data-icon="arrow-up-right"></i></span>
+                </button>
+                <button
+                  id="enter-en"
+                  class="enter-button"
+                  data-enter="en"
+                  disabled
+                >
+                  <b>ENGLISH</b
+                  ><span>ENTER ARCHIVE <i data-icon="arrow-up-right"></i></span>
+                </button>
+              </div>
+            </div>
+            <div
+              class="boot-progress"
+              role="progressbar"
+              aria-label="音频加载 / Audio loading"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+            >
+              <i></i>
+            </div>
+            <div class="boot-telemetry">
+              <p id="boot-status" class="micro" role="status">
+                正在加载声音 / LOADING AUDIO
+              </p>
+              <output id="boot-percent">00%</output>
+            </div>
+            <button id="boot-retry" class="enter-button" hidden>
+              重新加载 / RETRY
+            </button>
+            <p class="browser-notice" hidden>
+              为获得更好的体验，请使用 Chrome 或 Chromium 内核浏览器。<span
+                >BEST EXPERIENCED IN CHROME / CHROMIUM.</span
+              >
+            </p>
+          </div>
+        </div>
+        <span class="boot-foot micro">OPEN THE SOURCE. EXPLORE THE WORK.</span>
+      </div>
+    </div>
+    <div id="site" inert>
+      <div class="outer-label">
+        <span>INDEPENDENT SOFTWARE & AUDIO TOOLS</span
+        ><span>THE OCTOPUS CODE ARCHIVE</span>
+      </div>
+      <main class="shell" data-view="projects">
+        <div class="chassis-rail chassis-rail-left" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </div>
+        <div class="chassis-rail chassis-rail-right" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </div>
+        <header class="masthead">
+          <div class="brand" role="group" aria-label="Dirty Octopus 首页">
+            <button
+              type="button"
+              class="identity-mark"
+              aria-label="旋转金属标志 / Spin the metal logo"
+            >
+              <img
+                src="./art/dirty-octopus-logo.jpg"
+                alt="Dirty Octopus logo"
+              />
+            </button>
+            <a href="#" class="brand-home">
+              <span class="brand-name"
+                ><strong>DIRTY<br />OCTOPUS<span>®</span></strong
+                ><small>COMPOSITION / SOUND DESIGN</small></span
+              ></a
+            >
+          </div>
+          <div class="navigation-block">
+            <div class="navigation-caption">
+              <span>INDEPENDENT SOFTWARE EXPLORATIONS</span
+              ><span>SELECT A MODULE ↓</span>
+            </div>
+            <nav aria-label="主要导航">
+              <button
+                class="nav active"
+                data-nav="projects"
+                aria-current="page"
+              >
+                <span>00</span><b>GitHub 项目</b><small>PROJECTS</small>
+              </button>
+              <button class="nav" data-nav="overview">
+                <span>01</span><b>关于</b><small>ABOUT</small>
+              </button>
+              <a
+                class="nav"
+                id="audio-portfolio"
+                href="https://dirtyoctopus.net"
+                ><span>02 ↗</span><b>音频作品集</b
+                ><small>AUDIO PORTFOLIO</small></a
+              >
+              <button class="nav" data-nav="fun">
+                <span>03</span><b>有趣的东西</b><small>PLAYGROUND</small>
+              </button>
+              <button class="nav" data-nav="contact">
+                <span>04</span><b>联系方式</b><small>CONTACT</small>
+              </button>
+            </nav>
+          </div>
+          <div class="header-tools">
+            <button
+              class="sfx-toggle"
+              id="sfx-toggle"
+              aria-label="关闭界面音效"
+              aria-pressed="true"
+            >
+              <span data-icon="speaker-high"></span
+              ><span>SFX <b>ON</b></span></button
+            ><button
+              class="sfx-toggle"
+              id="bgm-toggle"
+              aria-label="关闭背景音乐"
+              aria-pressed="true"
+            >
+              <span data-icon="music-notes"></span
+              ><span>BGM <b>ON</b></span></button
+            ><button
+              class="system-open"
+              id="system-open"
+              aria-label="打开系统控制台"
+              aria-expanded="false"
+            >
+              <span data-icon="sliders-horizontal"></span><span>SYSTEM</span>
+            </button>
+          </div>
+        </header>
+        <div class="module-surface">
+          <section class="hero" aria-label="GitHub 项目作品集">
+            <div class="hero-art" aria-hidden="true">
+              <svg
+                class="banner-strata"
+                viewBox="0 0 1200 300"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <path class="strata-base" d="M0 0H1200V300H0Z" />
+                <g class="strata-far">
+                  <path d="M520 0H1200V300H750L630 180H440L560 60Z" />
+                  <path d="M810 0H880L640 300H570Z" />
+                </g>
+                <g class="strata-mid">
+                  <path d="M930 0H1200V300H680L790 190H930L1050 70H860Z" />
+                  <path d="M620 0H645L410 300H385Z" />
+                </g>
+                <g class="strata-front">
+                  <path d="M1120 0H1200V300H940L830 190H1020L1090 120H1000Z" />
+                  <path d="M770 246H975L1029 300H716Z" />
+                </g>
+                <path
+                  class="strata-line"
+                  d="M600 20H915L1015 120H1180M490 280H660L790 150H920M745 238H992L1034 280H1180"
+                />
+              </svg>
+            </div>
+            <div class="halftone"></div>
+            <div class="scanlines"></div>
+            <div class="signal-assembly" aria-hidden="true">
+              <svg class="signal-contour" viewBox="0 0 620 244" fill="none">
+                <g class="contour-frame">
+                  <path d="M20 18H556L602 64V206H394L374 226H20" />
+                  <path d="M20 24H553L596 67V200H391L371 220H20" />
+                </g>
+                <g class="contour-trace">
+                  <path
+                    pathLength="100"
+                    d="M20 18H556L602 64V206H394L374 226H20"
+                  />
+                  <path
+                    pathLength="100"
+                    d="M20 24H553L596 67V200H391L371 220H20"
+                  />
+                </g>
+              </svg>
+              <div class="signal-scan"></div>
+            </div>
+            <div class="hero-side">
+              <span class="vertical-label">CODE / AUDIO</span
+              ><span class="side-square">D.O.</span>
+            </div>
+            <div class="hero-copy">
+              <p class="micro">A COLLECTION OF TOOLS & EXPERIMENTS</p>
+              <h2>
+                <span>DIRTY OCTOPUS</span><br /><span class="hero-subtitle"
+                  >SOFTWARE EXPLORATIONS.</span
+                >
+              </h2>
+              <div class="hero-sub">
+                <span class="solid-square"></span>
+                <p class="hero-description">
+                  把想法，做成工具。<small
+                    >MACOS UTILITIES / AUDIO PLUGINS / OPEN SOURCE</small
+                  >
+                </p>
+              </div>
+              <button id="explore" class="metal-button">
+                <span data-icon="arrow-up-right"></span><b>探索项目</b
+                ><small>EXPLORE PROJECTS</small
+                ><span class="button-arrow">↗</span>
+              </button>
+            </div>
+            <div class="hero-coordinate" aria-hidden="true">
+              <span>SELECTED WORKS<br />AN INDEPENDENT ARCHIVE</span>
+              <div class="crosshair">+</div>
+              <div class="image-index">
+                <strong>04</strong><span>SELECTED<br />REPOSITORIES</span>
+              </div>
+            </div>
+            <div class="scene-corner">
+              <span>VISUAL TREATMENT</span>
+              <div role="group" aria-label="画面处理">
+                <button
+                  class="treatment-button"
+                  data-treatment="duotone"
+                  aria-pressed="false"
+                >
+                  BLUE</button
+                ><button
+                  class="treatment-button active"
+                  data-treatment="halftone"
+                  aria-pressed="true"
+                >
+                  PRIMARY</button
+                ><button
+                  class="treatment-button"
+                  data-treatment="mono"
+                  aria-pressed="false"
+                >
+                  GRAYSCALE
+                </button>
+              </div>
+            </div>
+            <div class="hero-bottom">
+              <span>SOFTWARE IS ANOTHER WAY TO SHAPE AN IDEA.</span
+              ><span>MACOS TOOLS / AUDIO PLUGINS / EXPERIMENTS</span>
+            </div>
+            <div class="hero-shutter" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </section>
+          <div class="chassis-bridge" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <div class="module-path">
+            <span
+              >OCTOPUS<span class="path-slash">/</span
+              ><b id="module-path">OVERVIEW</b></span
+            ><span id="interaction-hint"
+              >SELECT A MODULE. ENTER A DIFFERENT FREQUENCY.</span
+            >
+          </div>
+          <div class="section-bar">
+            <span
+              ><i></i> <span data-i18n="archive">作品档案</span>
+              <b id="workspace-label">ARCHIVE / OVERVIEW</b></span
+            ><span id="system-status"
+              >READY TO EXPLORE <i class="online"></i
+            ></span>
+          </div>
+          <div class="board-notice">
+            <div>
+              <span class="board-marker" aria-hidden="true">::</span>
+              <p>
+                <b data-i18n="welcome">欢迎来到声音档案。</b
+                ><span data-i18n="notice"
+                  >原创作品、未采用稿件与声音实验。</span
+                >
+              </p>
+            </div>
+            <div class="board-counts">
+              <span
+                ><b>04</b> <span data-i18n="repositories">代码仓库</span></span
+              ><span><b>02</b> macOS</span><span><b>02</b> AUDIO</span>
+            </div>
+          </div>
+          <div class="view-port">
+            <div class="workspace" aria-busy="false">
+              <section class="biography" aria-labelledby="profile-title">
+                <div class="profile-identity">
+                  <span class="micro">00 / PERSONAL FILE</span>
+                  <img src="./art/dirty-octopus-logo.jpg" alt="Dirty Octopus" />
+                  <span class="profile-stamp"
+                    >DIRTY OCTOPUS<br /><small
+                      >COMPOSITION / SOUND DESIGN</small
+                    ></span
+                  >
+                </div>
+                <div class="biography-copy">
+                  <div class="profile-heading">
+                    <span class="micro" data-i18n="profile">个人简介</span
+                    ><span class="online"></span>
+                  </div>
+                  <h2 id="profile-title">DIRTY OCTOPUS</h2>
+                  <p class="profile-role" data-i18n="profileRole">
+                    音乐制作 / 混音 / 声音设计
+                  </p>
+                  <p data-i18n="biographyExperience"></p>
+                  <p data-i18n="biographyReach"></p>
+                  <p data-i18n="biographyRecognition"></p>
+                  <div class="profile-credits">
+                    <span
+                      ><b>3+</b
+                      ><small data-i18n="yearsFreelance"
+                        >年个人接稿经验</small
+                      ></span
+                    >
+                    <span
+                      ><b>390K+</b
+                      ><small data-i18n="youtubePlays"
+                        >YouTube 单曲播放</small
+                      ></span
+                    >
+                    <span
+                      ><b>~240K</b
+                      ><small data-i18n="douyinLikes">抖音累计获赞</small></span
+                    >
+                  </div>
+                </div>
+              </section>
+              <section class="contact" aria-labelledby="contact-title">
+                <div class="contact-heading">
+                  <span class="micro">04 / CONTACT</span>
+                  <h2 id="contact-title" data-i18n="contact">联系方式</h2>
+                  <p data-i18n="contactWelcome">欢迎约稿 / 咨询。</p>
+                </div>
+                <dl class="contact-list">
+                  <div class="contact-row">
+                    <dt data-i18n="email">电邮</dt>
+                    <dd>
+                      <a href="mailto:yuandy24@icloud.com"
+                        >yuandy24@icloud.com</a
+                      >
+                    </dd>
+                    <dd class="contact-action">
+                      <button
+                        data-copy-contact="yuandy24@icloud.com"
+                        aria-label="复制邮箱"
+                        title="复制邮箱"
+                      >
+                        <span data-icon="copy"></span>
+                      </button>
+                    </dd>
+                  </div>
+                  <div class="contact-row">
+                    <dt>QQ</dt>
+                    <dd>256246372</dd>
+                    <dd class="contact-action">
+                      <button
+                        data-copy-contact="256246372"
+                        aria-label="复制 QQ"
+                        title="复制 QQ"
+                      >
+                        <span data-icon="copy"></span>
+                      </button>
+                    </dd>
+                  </div>
+                  <div class="contact-row">
+                    <dt data-i18n="wechat">微信</dt>
+                    <dd>CambridgePocketKnife</dd>
+                    <dd class="contact-action">
+                      <button
+                        data-copy-contact="CambridgePocketKnife"
+                        aria-label="复制微信号"
+                        title="复制微信号"
+                      >
+                        <span data-icon="copy"></span>
+                      </button>
+                    </dd>
+                  </div>
+                  <div class="contact-row">
+                    <dt>Discord</dt>
+                    <dd>dirtyoctopus</dd>
+                    <dd class="contact-action">
+                      <button
+                        data-copy-contact="dirtyoctopus"
+                        aria-label="复制 Discord ID"
+                        title="复制 Discord ID"
+                      >
+                        <span data-icon="copy"></span>
+                      </button>
+                    </dd>
+                  </div>
+                </dl>
+              </section>
+              <section class="playground" aria-labelledby="playground-title">
+                <div class="playground-heading">
+                  <span class="micro">03 / OFF THE RECORD</span>
+                  <h2 id="playground-title" data-i18n="playground">
+                    有趣的东西
+                  </h2>
+                  <span class="micro">SOUND OBJECTS</span>
+                </div>
+                <div class="toy-heading">
+                  <h3 data-i18n="rotary">摇把</h3>
+                  <span>01 / WINDOW CRANK</span>
+                </div>
+                <div class="rotary-stage">
+                  <canvas id="rotary-particles" aria-hidden="true"></canvas>
+                  <div class="rotary-assembly">
+                    <div class="rotary-ticks" aria-hidden="true"></div>
+                    <div class="rotary-crosshair" aria-hidden="true"></div>
+                    <div
+                      id="rotary-knob"
+                      role="slider"
+                      tabindex="0"
+                      aria-label="车窗摇把"
+                      aria-valuemin="0"
+                      aria-valuemax="359"
+                      aria-valuenow="0"
+                      aria-valuetext="0°"
+                    >
+                      <div class="crank-arm" aria-hidden="true">
+                        <span class="crank-grip"><i></i></span>
+                      </div>
+                      <div class="crank-hub" aria-hidden="true">
+                        <i></i><b>DO</b>
+                      </div>
+                    </div>
+                    <span class="rotary-mark rotary-mark-top" aria-hidden="true"
+                      >N</span
+                    >
+                    <span
+                      class="rotary-mark rotary-mark-bottom"
+                      aria-hidden="true"
+                      >S</span
+                    >
+                  </div>
+                  <div
+                    class="crank-charge"
+                    role="meter"
+                    aria-label="摇把蓄能"
+                    aria-valuemin="0"
+                    aria-valuemax="10"
+                    aria-valuenow="0"
+                  >
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                    ><i></i><i></i>
+                  </div>
+                  <span class="rotary-caption" aria-hidden="true"
+                    >SOUND / IN MOTION</span
+                  >
+                </div>
+                <section class="fader-module" aria-labelledby="fader-title">
+                  <div class="toy-heading">
+                    <h3 id="fader-title">NEURAA</h3>
+                    <span>02 / FADER</span>
+                  </div>
+                  <div class="fader-stage">
+                    <div
+                      id="neuraa-slider"
+                      role="slider"
+                      tabindex="0"
+                      aria-label="滑块目标"
+                      aria-orientation="horizontal"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      aria-valuenow="50"
+                    >
+                      <div class="fader-travel">
+                        <div class="fader-scale" aria-hidden="true"></div>
+                        <div class="fader-rail" aria-hidden="true"></div>
+                        <span class="fader-target" aria-hidden="true"
+                          ><i></i
+                        ></span>
+                        <span class="fader-end fader-left" aria-hidden="true"
+                          >L</span
+                        >
+                        <span class="fader-end fader-right" aria-hidden="true"
+                          >R</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <div class="playground-game">
+                  <div class="toy-heading">
+                    <h3>V0lt4ge-Ov3rdrive</h3>
+                    <span>03 / GAME</span>
+                  </div>
+                  <a
+                    class="playground-game-link"
+                    href="https://dirty-octopus.github.io/V0lt4ge-Ov3rdrive/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    ><span data-i18n="openGame">打开小游戏（新标签页）</span
+                    ><span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </section>
+              <section
+                class="project-board"
+                aria-label="GitHub 项目"
+                data-i18n-label="projects"
+              >
+                <aside class="project-index">
+                  <h2 class="panel-label">
+                    <span data-i18n="projectIndex">项目索引</span
+                    ><span>01—04</span>
+                  </h2>
+                  <label class="search"
+                    ><span data-icon="magnifying-glass"></span
+                    ><input
+                      id="search"
+                      type="search"
+                      placeholder="搜索项目…"
+                      aria-label="搜索项目"
+                      autocomplete="off"
+                    /><kbd>/</kbd></label
+                  >
+                  <div
+                    id="project-filters"
+                    class="project-filters"
+                    role="group"
+                    aria-label="项目分类"
+                  ></div>
+                  <div
+                    id="project-list"
+                    class="project-list"
+                    role="group"
+                    aria-label="项目列表"
+                  ></div>
+                  <div class="project-index-foot">
+                    <span id="result-count"></span
+                    ><a
+                      href="https://github.com/Dirty-Octopus"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><span data-i18n="githubProfile">GitHub 主页</span> ↗</a
+                    >
+                  </div>
+                </aside>
+                <article
+                  class="project-feature"
+                  aria-labelledby="project-title"
+                >
+                  <div class="project-preview-heading">
+                    <span
+                      ><i class="online"></i>
+                      <span data-i18n="preview">界面预览</span></span
+                    >
+                    <div>
+                      <span id="project-position">01 / 04</span
+                      ><button
+                        id="project-prev"
+                        class="icon-button"
+                        aria-label="上一个项目"
+                      >
+                        ←</button
+                      ><button
+                        id="project-next"
+                        class="icon-button"
+                        aria-label="下一个项目"
+                      >
+                        →</button
+                      ><button
+                        id="preview-open"
+                        class="icon-button"
+                        aria-label="放大预览"
+                      >
+                        <span data-icon="arrows-out-simple"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    class="project-image-stage"
+                    id="project-preview"
+                    aria-label="放大项目预览"
+                  >
+                    <img id="project-image" alt="" decoding="async" /><span
+                      class="preview-caption"
+                      >DIRTY OCTOPUS /
+                      <span id="preview-caption">SEAL</span></span
+                    ><span class="preview-expand"
+                      ><span data-i18n="viewPreview">查看预览</span> ↗</span
+                    >
+                  </button>
+                  <div class="project-text">
+                    <div class="project-text-content">
+                      <p class="micro" id="project-type"></p>
+                      <div class="project-title-row">
+                        <h2 id="project-title"></h2>
+                        <span id="project-number">01</span>
+                      </div>
+                      <p
+                        class="project-description"
+                        id="project-description"
+                      ></p>
+                      <ul
+                        class="project-tags"
+                        id="project-tags"
+                        aria-label="技术与平台"
+                      ></ul>
+                      <div class="project-actions">
+                        <a
+                          id="project-repository"
+                          class="metal-button"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          ><span data-icon="github-logo"></span
+                          ><b data-i18n="viewRepository">查看仓库</b
+                          ><span class="button-arrow">↗</span></a
+                        ><a
+                          id="project-readme"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >README ↗</a
+                        >
+                      </div>
+                      <p id="project-note" class="project-note"></p>
+                    </div>
+                  </div>
+                </article>
+              </section>
+            </div>
+          </div>
+          <div class="module-wipe" aria-hidden="true">
+            <i></i><i></i><i></i>
+          </div>
+        </div>
+        <footer>
+          <span
+            >© <span id="year"></span> DIRTY OCTOPUS <i>/</i> SOFTWARE & AUDIO
+            TOOLS</span
+          >
+          <span class="footer-message">听见想象之外。</span>
+          <button id="back-top">
+            BACK TO TOP <span data-icon="arrow-up-right"></span>
+          </button>
+        </footer>
+      </main>
+      <section
+        class="transport project-transport collapsed"
+        aria-label="声音控制"
+      >
+        <span class="micro">SOUND / MASTER OUTPUT</span
+        ><canvas
+          id="spectrum"
+          width="100"
+          height="28"
+          aria-hidden="true"
+        ></canvas>
+        <div class="volume-control">
+          <button
+            id="mute"
+            class="icon-button"
+            aria-label="静音"
+            aria-pressed="false"
+          >
+            <span data-icon="speaker-high"></span></button
+          ><input
+            type="range"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.65"
+            aria-label="主音量"
+          /><output id="volume-value">65%</output>
+        </div>
+      </section>
+      <div class="bottom-label">
+        <span>CRAFTED TO EXPLORE.</span><span>SOURCE / SOUND / SOFTWARE</span>
+      </div>
+    </div>
+    <div class="system-backdrop" hidden></div>
+    <dialog
+      id="system-dialog"
+      class="system-dialog"
+      aria-labelledby="system-title"
+      aria-modal="true"
+    >
+      <div class="system-emblem" aria-hidden="true">
+        <span data-icon="sliders-horizontal"></span>
+      </div>
+      <div class="system-content">
+        <div class="system-titlebar">
+          <h2 id="system-title">INTERFACE.CONTROL</h2>
+          <button id="system-close" aria-label="关闭系统控制台">×</button>
+        </div>
+        <p class="system-description">自定义这一次的声音与视觉体验。</p>
+        <div class="system-section">
+          <h3>DISPLAY PROCESSING <span>画面处理</span></h3>
+          <div class="system-treatments">
+            <button data-treatment="duotone" aria-pressed="false">
+              <span class="theme-swatches" aria-hidden="true"
+                ><i style="--swatch: #142330"></i
+                ><i style="--swatch: #4d8fb8"></i
+                ><i style="--swatch: #9ac9e2"></i
+              ></span>
+              <span data-i18n="themeBlue">经典蓝</span></button
+            ><button data-treatment="halftone" aria-pressed="true">
+              <span class="theme-swatches" aria-hidden="true"
+                ><i style="--swatch: #080808"></i
+                ><i style="--swatch: #ff302b"></i
+                ><i style="--swatch: #fff100"></i
+                ><i style="--swatch: #164eff"></i
+              ></span>
+              <span data-i18n="themePrimary">高对比</span></button
+            ><button data-treatment="mono" aria-pressed="false">
+              <span class="theme-swatches" aria-hidden="true"
+                ><i style="--swatch: #202020"></i
+                ><i style="--swatch: #898989"></i
+                ><i style="--swatch: #eeeeee"></i
+              ></span>
+              <span data-i18n="themeMono">灰阶</span>
+            </button>
+          </div>
+          <p>经典蓝 / 高对比 / 灰阶。项目截图保留原始色彩。</p>
+        </div>
+        <div class="system-switch-row">
+          <span>INTERFACE MOTION<small>界面动画</small></span
+          ><button id="motion-toggle" role="switch" aria-checked="true">
+            ON
+          </button>
+        </div>
+        <div class="system-switch-row">
+          <span>INTERFACE SOUND<small>交互音效</small></span
+          ><button id="system-sfx" role="switch" aria-checked="true">ON</button>
+        </div>
+        <div class="system-switch-row">
+          <span data-i18n="bgm">背景音乐</span>
+          <button id="system-bgm" role="switch" aria-checked="true">ON</button>
+        </div>
+        <div class="system-switch-row experimental-row">
+          <span data-i18n="crtLens">视角畸变 · 实验性</span>
+          <button id="crt-toggle" role="switch" aria-checked="false">
+            OFF
+          </button>
+        </div>
+        <div class="system-section">
+          <h3>
+            <span data-i18n="softness">屏幕柔化</span
+            ><output id="softness-value">0.20</output>
+          </h3>
+          <input
+            id="softness"
+            type="range"
+            min="0"
+            max="0.8"
+            step="0.05"
+            value="0.2"
+            aria-label="屏幕柔化"
+          />
+        </div>
+        <div class="system-section">
+          <h3 data-i18n="language">语言</h3>
+          <div class="system-treatments" role="group" aria-label="Language">
+            <button data-language="zh" aria-pressed="true">中文</button>
+            <button data-language="en" aria-pressed="false">ENGLISH</button>
+          </div>
+        </div>
+        <div class="system-section">
+          <h3>TRANSPORT STATE <span>播放状态</span></h3>
+          <div class="system-state" id="system-playback-state">IDLE / 待机</div>
+        </div>
+        <div class="system-section">
+          <h3>KEYBOARD <span>快捷操作</span></h3>
+          <div class="shortcut"><kbd>SPACE</kbd><span>背景音乐开关</span></div>
+          <div class="shortcut"><kbd>/</kbd><span>搜索作品</span></div>
+          <div class="shortcut"><kbd>← →</kbd><span>切换项目预览</span></div>
+          <div class="shortcut">
+            <kbd>ESC</kbd><span>关闭控制台 / 清除搜索</span>
+          </div>
+        </div>
+        <div class="system-log">
+          <span>LAST ACTION</span>
+          <p id="last-action">EXPERIENCE INITIALIZED</p>
+        </div>
+        <div class="system-section reset-section">
+          <button id="settings-reset">
+            <span data-icon="arrow-counter-clockwise"></span
+            ><span data-i18n="resetSettings">重置所有设置</span>
+          </button>
+        </div>
+      </div>
+    </dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <div class="scroll-ruler" aria-hidden="true"><i></i></div>
+    <div class="screen-bloom" aria-hidden="true"></div>
+    <div class="screen-diffusion" aria-hidden="true"></div>
+    <div class="screen-patina" aria-hidden="true">
+      <canvas id="screen-noise"></canvas>
+    </div>
+    <dialog
+      id="preview-dialog"
+      class="preview-dialog"
+      aria-labelledby="preview-title"
+    >
+      <header>
+        <h2 id="preview-title"></h2>
+        <button id="preview-close" class="icon-button" aria-label="关闭预览">
+          ×
+        </button>
+      </header>
+      <div class="preview-full-stage"><img id="preview-image" alt="" /></div>
+      <a id="preview-repository" target="_blank" rel="noopener noreferrer"
+        >GITHUB ↗</a
+      >
+    </dialog>
+    <audio id="audio" preload="none"></audio
+    ><video id="video" hidden preload="none"></video>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

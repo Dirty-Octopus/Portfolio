@@ -1,0 +1,73 @@
+[
+  {
+    "id": "seal",
+    "title": "Seal",
+    "category": "desktop",
+    "repository": "https://github.com/Dirty-Octopus/seal",
+    "image": "art/seal.png",
+    "subtitle": ["macOS / 本地签名工具", "MACOS / LOCAL SIGNING UTILITY"],
+    "description": [
+      "为 macOS 应用与文件处理本地签名与扩展属性。把常用操作集中在一个桌面界面中，并保留执行记录。",
+      "A desktop utility for local signing and extended attributes on macOS apps and files, with common operations and execution history in one place."
+    ],
+    "tags": ["macOS", "Electron", "AYMDevKitUI", "LOCAL-FIRST"],
+    "note": [
+      "查看仓库，了解安装方法、支持范围和当前版本。",
+      "See the repository for installation, supported operations and the current version."
+    ]
+  },
+  {
+    "id": "packager",
+    "title": "Packager",
+    "category": "desktop",
+    "repository": "https://github.com/Dirty-Octopus/packager",
+    "image": "art/packager.png",
+    "subtitle": ["macOS / 安装包工具", "MACOS / INSTALLER TOOLKIT"],
+    "description": [
+      "检查 .pkg 与 .mpkg 安装包，评估兼容性、修复问题并重新打包。桌面界面与隔离的 Swift helper 配合处理安装包内容。",
+      "Inspect .pkg and .mpkg installers, assess compatibility, repair issues and rebuild packages through a desktop interface backed by an isolated Swift helper."
+    ],
+    "tags": ["macOS", "Electron", "Swift", "PKG / MPKG"],
+    "note": [
+      "兼容性评估与修复范围以仓库说明为准。",
+      "Refer to the repository for compatibility assessment and repair scope."
+    ]
+  },
+  {
+    "id": "spectral-corruptor",
+    "title": "Spectral Corruptor",
+    "category": "audio",
+    "repository": "https://github.com/Dirty-Octopus/spectral-corruptor-plugin",
+    "image": "art/spectral-corruptor.png",
+    "subtitle": [
+      "音频 / 频域模块化处理器",
+      "AUDIO / MODULAR SPECTRAL PROCESSOR"
+    ],
+    "description": [
+      "围绕 FFT 频域构建的模块化音频处理器。通过效果链、频谱重映射与调制探索声音，并在输入和输出频谱中观察变化。",
+      "A modular audio processor built around the FFT domain. Explore sound through effect chains, spectral remapping and modulation, with input and output spectrum views."
+    ],
+    "tags": ["C++17", "JUCE 8", "FFT", "AUDIO PLUGIN"],
+    "note": [
+      "公开仓库为 Source Edition；构建及授权差异请查看 README。",
+      "The public repository is the Source Edition. See its README for build and licensing differences."
+    ]
+  },
+  {
+    "id": "dtblkfx",
+    "title": "DtBlkFx for Mackintosh",
+    "category": "audio",
+    "repository": "https://github.com/Dirty-Octopus/dtblkfx4mackintosh",
+    "image": "art/dtblkfx.png",
+    "subtitle": ["音频 / DtBlkFx macOS 移植", "AUDIO / DTBLKFX MACOS PORT"],
+    "description": [
+      "将 Darrell Tam 的 DtBlkFx 频域效果器带到 Apple Silicon macOS。保留经典界面的个性，延续对频谱处理与声音实验的探索。",
+      "Bringing Darrell Tam’s DtBlkFx spectral effect to Apple Silicon macOS, preserving the character of its classic interface and its approach to spectral sound experiments."
+    ],
+    "tags": ["macOS", "Apple Silicon", "C++", "SPECTRAL FX"],
+    "note": [
+      "界面截图由作者提供；移植进展与可用版本以仓库说明为准。",
+      "Interface screenshot supplied by the author. See the repository for porting progress and available builds."
+    ]
+  }
+]
